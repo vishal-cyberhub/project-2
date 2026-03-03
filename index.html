@@ -1,0 +1,618 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple OTT Platform</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-bg-video">
+    <video id="bgVideo" autoplay muted playsinline loop></video>
+    <div class="page-bg-overlay"></div>
+  </div>
+  <div class="navbar">
+    <div class="navbar-content">
+      <div class="logo">
+        <span class="logo-icon">▶</span>
+        <span class="logo-text">WatchMe</span>
+      </div>
+      <div class="menu">
+        <a href="#" class="menu-item active">Home</a>
+        <a href="#" class="menu-item">Movies</a>
+        <a href="#" class="menu-item">Series</a>
+        <a href="#" class="menu-item">My List</a>
+        <a href="download.html" class="menu-item">Download</a>
+      </div>
+      <div class="navbar-right">
+        <div class="search-container">
+          <div class="search-bar" id="searchBar">
+            <input type="text" id="searchInput" placeholder="Search for songs, movies..." autocomplete="off">
+            <button class="search-close-btn" id="searchCloseBtn">×</button>
+          </div>
+          <button class="search-btn" id="searchBtn" aria-label="Search">
+            <span class="search-icon">🔍</span>
+          </button>
+        </div>
+        <div class="user-menu">
+          <a href="login.html" class="user-btn">
+            <span class="user-icon">👤</span>
+            <span class="user-text">Login</span>
+          </a>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="search-results-dropdown" id="searchResultsDropdown">
+    <div class="search-results-content" id="searchResults">
+      <div class="search-placeholder">
+        <p>Start typing to search...</p>
+      </div>
+    </div>
+  </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#" class="mobile-menu-item active">Home</a>
+      <a href="#" class="mobile-menu-item">Movies</a>
+      <a href="#" class="mobile-menu-item">Series</a>
+      <a href="#" class="mobile-menu-item">My List</a>
+      <a href="download.html" class="mobile-menu-item">Download</a>
+      <a href="login.html" class="mobile-menu-item">Login</a>
+    </div>
+  </div>
+  
+  <div class="hero">
+    <h1>Welcome to WatchMe</h1>
+    <p>Your favorite movies and series, all in one place. Stream now!</p>
+  </div>
+  
+  <!-- Video Modal -->
+  <div id="videoModal" class="video-modal">
+    <button class="video-close" aria-label="Close">×</button>
+    <div class="video-wrapper">
+      <video id="modalVideo">
+        <source src="" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      
+      <!-- Loading Spinner -->
+      <div class="video-loading">
+        <div class="spinner"></div>
+      </div>
+      
+      <!-- Controls Overlay -->
+      <div class="video-controls-overlay">
+        <!-- Bottom Controls -->
+        <div class="controls-bottom">
+          <!-- Progress Bar -->
+          <div class="progress-bar" id="progressBar">
+            <div class="progress-filled" id="progressFilled"></div>
+            <div class="progress-thumb" id="progressThumb"></div>
+          </div>
+          
+          <!-- Controls Row -->
+          <div class="controls-row">
+            <div class="controls-group">
+              <button class="control-btn" id="playPause">
+                <span class="play-icon">▶</span>
+                <span class="pause-icon">⏸</span>
+              </button>
+              
+              <button class="control-btn volume-btn" id="volumeBtn">🔊</button>
+              <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+              
+              <span class="time-display">
+                <span id="currentTime">0:00</span> / <span id="totalTime">0:00</span>
+              </span>
+            </div>
+            
+            <div class="controls-group">
+              <button class="control-btn speed-btn" id="speedBtn">1x</button>
+              <button class="control-btn fullscreen-btn" id="fullscreenBtn">⛶</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="movies">
+    <div class="movie-card" onclick="openVideo('videos/100 Million - DIVINE, Karan Aujla   Official Music Video.mp4')">
+      <img src="IMAGE/100million.jpg" alt="Movie Poster">
+      <div class="title">100 Million</div>
+      <div class="desc">DIVINE, Karan Aujla   Official Music Video.</div>
+    </div>
+    <div class="movie-card" onclick="openVideo('videos/DO ME A FAVOUR (Official Video) Navaan Sandhu   Teji Sandhu   SKY Digital   New Punjabi Song 2024.mp4')">
+      <img src="IMAGE/do me a faver.jpg" alt="Movie Poster">
+      <div class="title">DO ME A FAVOUR</div>
+      <div class="desc">Navaan Sandhu   Teji Sandhu   SKY Digital   New Punjabi Song 2024.</div>
+    </div>
+    <div class="movie-card" onclick="openVideo('videos/Tu Hai   Official Music Video   Darshan Raval   Neha Sharma   Prakriti Giri   Naushad Khan.mkv')">
+      <img src="IMAGE/tu hai.jpg" alt="Movie Poster">
+      <div class="title">TU HAI</div>
+      <div class="desc">Official Music Video   Darshan Raval   Neha Sharma   Prakriti Giri   Naushad Khan.</div>
+    </div>
+    <div class="movie-card" onclick="openVideo('videos/Yimmy Yimmy - Tayc   Shreya Ghoshal   Jacqueline Fernandez   Rajat N   Rana   Nyadjiko   Anshul Garg.mkv')">
+      <img src="IMAGE/yimmi.jpg" alt="Movie Poster">
+      <div class="title">YIMMY YIMMY</div>
+      <div class="desc">Tayc   Shreya Ghoshal   Jacqueline Fernandez   Rajat N   Rana   Nyadjiko   Anshul Garg  .</div>
+    </div>
+  </div>
+
+  <script>
+    const video = document.getElementById('modalVideo');
+    const modal = document.getElementById('videoModal');
+    const playPauseBtn = document.getElementById('playPause');
+    const volumeBtn = document.getElementById('volumeBtn');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const progressBar = document.getElementById('progressBar');
+    const progressFilled = document.getElementById('progressFilled');
+    const progressThumb = document.getElementById('progressThumb');
+    const currentTimeDisplay = document.getElementById('currentTime');
+    const totalTimeDisplay = document.getElementById('totalTime');
+    const speedBtn = document.getElementById('speedBtn');
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const videoWrapper = document.querySelector('.video-wrapper');
+    const controlsOverlay = document.querySelector('.video-controls-overlay');
+    const loadingSpinner = document.querySelector('.video-loading');
+
+    let controlsTimeout;
+    let isDragging = false;
+    const speeds = [0.5, 0.75, 1, 1.25, 1.5, 2];
+
+    // Shared video data
+    const videoData = [
+      {
+        title: "100 Million",
+        description: "DIVINE, Karan Aujla   Official Music Video",
+        videoSrc: "videos/100 Million - DIVINE, Karan Aujla   Official Music Video.mp4",
+        imageSrc: "IMAGE/100million.jpg",
+        category: "Music"
+      },
+      {
+        title: "DO ME A FAVOUR",
+        description: "Navaan Sandhu   Teji Sandhu   SKY Digital   New Punjabi Song 2024",
+        videoSrc: "videos/DO ME A FAVOUR (Official Video) Navaan Sandhu   Teji Sandhu   SKY Digital   New Punjabi Song 2024.mp4",
+        imageSrc: "IMAGE/do me a faver.jpg",
+        category: "Music"
+      },
+      {
+        title: "TU HAI",
+        description: "Official Music Video   Darshan Raval   Neha Sharma   Prakriti Giri   Naushad Khan",
+        videoSrc: "videos/Tu Hai   Official Music Video   Darshan Raval   Neha Sharma   Prakriti Giri   Naushad Khan.mkv",
+        imageSrc: "IMAGE/tu hai.jpg",
+        category: "Music"
+      },
+      {
+        title: "YIMMY YIMMY",
+        description: "Tayc   Shreya Ghoshal   Jacqueline Fernandez   Rajat N   Rana   Nyadjiko   Anshul Garg",
+        videoSrc: "videos/Yimmy Yimmy - Tayc   Shreya Ghoshal   Jacqueline Fernandez   Rajat N   Rana   Nyadjiko   Anshul Garg.mkv",
+        imageSrc: "IMAGE/yimmi.jpg",
+        category: "Music"
+      }
+    ];
+
+    function openVideo(videoSrc) {
+      video.src = videoSrc;
+      modal.style.display = 'flex';
+      loadingSpinner.style.display = 'flex';
+      video.load();
+      
+      video.addEventListener('loadeddata', () => {
+        loadingSpinner.style.display = 'none';
+        video.play();
+        updatePlayPauseIcon();
+      }, { once: true });
+    }
+
+    function closeVideo() {
+      video.pause();
+      video.src = '';
+      modal.style.display = 'none';
+      resetControls();
+    }
+
+    function resetControls() {
+      video.currentTime = 0;
+      video.playbackRate = 1;
+      video.volume = 1;
+      volumeSlider.value = 1;
+      speedBtn.textContent = '1x';
+      updatePlayPauseIcon();
+      updateVolumeIcon();
+    }
+
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    function updatePlayPauseIcon() {
+      const isPlaying = !video.paused;
+      const playIcons = playPauseBtn.querySelectorAll('.play-icon');
+      const pauseIcons = playPauseBtn.querySelectorAll('.pause-icon');
+      playIcons.forEach(icon => icon.style.display = isPlaying ? 'none' : 'inline');
+      pauseIcons.forEach(icon => icon.style.display = isPlaying ? 'inline' : 'none');
+    }
+
+    function updateVolumeIcon() {
+      const isMuted = video.muted || video.volume === 0;
+      volumeBtn.textContent = isMuted ? '🔇' : '🔊';
+    }
+
+    function togglePlayPause() {
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+      updatePlayPauseIcon();
+    }
+
+    function toggleMute() {
+      video.muted = !video.muted;
+      updateVolumeIcon();
+    }
+
+    function setVolume() {
+      video.volume = volumeSlider.value;
+      video.muted = false;
+      updateVolumeIcon();
+    }
+
+    function updateProgress() {
+      if (video.duration) {
+        const percent = (video.currentTime / video.duration) * 100;
+        progressFilled.style.width = percent + '%';
+        progressThumb.style.left = percent + '%';
+        currentTimeDisplay.textContent = formatTime(video.currentTime);
+      }
+    }
+
+    function setProgress(e) {
+      const rect = progressBar.getBoundingClientRect();
+      const percent = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      video.currentTime = percent * video.duration;
+    }
+
+    function showControls() {
+      controlsOverlay.style.opacity = '1';
+      clearTimeout(controlsTimeout);
+      controlsTimeout = setTimeout(() => {
+        if (!video.paused) {
+          controlsOverlay.style.opacity = '0';
+        }
+      }, 3000);
+    }
+
+    function hideControls() {
+      if (!video.paused) {
+        controlsOverlay.style.opacity = '0';
+      }
+    }
+
+    function toggleSpeed() {
+      const currentSpeed = video.playbackRate;
+      const currentIndex = speeds.indexOf(currentSpeed);
+      const nextIndex = (currentIndex + 1) % speeds.length;
+      video.playbackRate = speeds[nextIndex];
+      speedBtn.textContent = speeds[nextIndex] + 'x';
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        videoWrapper.requestFullscreen().catch(err => {
+          console.log('Error attempting to enable fullscreen:', err);
+        });
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    // Event Listeners
+    playPauseBtn.addEventListener('click', togglePlayPause);
+    volumeBtn.addEventListener('click', toggleMute);
+    volumeSlider.addEventListener('input', setVolume);
+    speedBtn.addEventListener('click', toggleSpeed);
+    fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+    video.addEventListener('timeupdate', updateProgress);
+    video.addEventListener('loadedmetadata', () => {
+      totalTimeDisplay.textContent = formatTime(video.duration);
+    });
+    video.addEventListener('play', () => {
+      updatePlayPauseIcon();
+      hideControls();
+    });
+    video.addEventListener('pause', () => {
+      updatePlayPauseIcon();
+      showControls();
+    });
+    video.addEventListener('waiting', () => {
+      loadingSpinner.style.display = 'flex';
+    });
+    video.addEventListener('canplay', () => {
+      loadingSpinner.style.display = 'none';
+    });
+
+    progressBar.addEventListener('click', setProgress);
+    progressBar.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      setProgress(e);
+    });
+    document.addEventListener('mousemove', (e) => {
+      if (isDragging) {
+        setProgress(e);
+      }
+    });
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    videoWrapper.addEventListener('mousemove', showControls);
+    videoWrapper.addEventListener('mouseleave', hideControls);
+    video.addEventListener('click', (e) => {
+      if (e.target === video) {
+        togglePlayPause();
+      }
+    });
+
+    document.querySelector('.video-close').addEventListener('click', closeVideo);
+    modal.addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeVideo();
+      }
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (modal.style.display === 'none') return;
+      
+      switch(e.key) {
+        case 'Escape':
+          closeVideo();
+          break;
+        case ' ':
+          e.preventDefault();
+          togglePlayPause();
+          break;
+        case 'ArrowLeft':
+          e.preventDefault();
+          video.currentTime -= 10;
+          break;
+        case 'ArrowRight':
+          e.preventDefault();
+          video.currentTime += 10;
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          video.volume = Math.min(1, video.volume + 0.1);
+          volumeSlider.value = video.volume;
+          updateVolumeIcon();
+          break;
+        case 'ArrowDown':
+          e.preventDefault();
+          video.volume = Math.max(0, video.volume - 0.1);
+          volumeSlider.value = video.volume;
+          updateVolumeIcon();
+          break;
+        case 'm':
+        case 'M':
+          toggleMute();
+          break;
+        case 'f':
+        case 'F':
+          toggleFullscreen();
+          break;
+      }
+      showControls();
+    });
+
+    document.addEventListener('fullscreenchange', () => {
+      fullscreenBtn.textContent = document.fullscreenElement ? '⛶' : '⛶';
+    });
+
+    // Background page video – pick one video and keep looping (muted autoplay)
+    const bgVideo = document.getElementById('bgVideo');
+    function initBackgroundVideo() {
+      if (!bgVideo || !videoData.length) return;
+      const randomItem = videoData[Math.floor(Math.random() * videoData.length)];
+      bgVideo.src = randomItem.videoSrc;
+      bgVideo.load();
+      bgVideo.play().catch(() => {});
+    }
+
+    initBackgroundVideo();
+
+    // Search Feature
+    const searchBtn = document.getElementById('searchBtn');
+    const searchBar = document.getElementById('searchBar');
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+    const searchResultsDropdown = document.getElementById('searchResultsDropdown');
+    const searchCloseBtn = document.getElementById('searchCloseBtn');
+    let searchTimeout;
+
+    function openSearch() {
+      searchBar.classList.add('active');
+      searchBtn.style.display = 'none';
+      setTimeout(() => {
+        searchInput.focus();
+      }, 100);
+    }
+
+    function closeSearch() {
+      searchBar.classList.remove('active');
+      searchBtn.style.display = 'flex';
+      searchInput.value = '';
+      searchResultsDropdown.style.display = 'none';
+      searchResults.innerHTML = '<div class="search-placeholder"><p>Start typing to search...</p></div>';
+    }
+
+    function performSearch(query) {
+      if (!query.trim()) {
+        searchResultsDropdown.style.display = 'none';
+        searchResults.innerHTML = '<div class="search-placeholder"><p>Start typing to search...</p></div>';
+        return;
+      }
+
+      const lowerQuery = query.toLowerCase();
+      const filteredResults = videoData.filter(item => 
+        item.title.toLowerCase().includes(lowerQuery) ||
+        item.description.toLowerCase().includes(lowerQuery) ||
+        item.category.toLowerCase().includes(lowerQuery)
+      );
+
+      if (filteredResults.length === 0) {
+        searchResultsDropdown.style.display = 'block';
+        searchResults.innerHTML = `
+          <div class="search-no-results">
+            <p>No results found for "${query}"</p>
+            <span>Try searching with different keywords</span>
+          </div>
+        `;
+        return;
+      }
+
+      const resultsHTML = filteredResults.map(item => `
+        <div class="search-result-item" onclick="openVideo('${item.videoSrc}'); closeSearch();">
+          <img src="${item.imageSrc}" alt="${item.title}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 200 200%27%3E%3Crect fill=%27%23333%27 width=%27200%27 height=%27200%27/%3E%3Ctext fill=%27%23999%27 font-family=%27sans-serif%27 font-size=%2720%27 x=%2750%25%27 y=%2750%25%27 text-anchor=%27middle%27 dy=%27.3em%27%3ENo Image%3C/text%3E%3C/svg%3E'">
+          <div class="search-result-info">
+            <h3>${item.title}</h3>
+            <p>${item.description}</p>
+            <span class="search-result-category">${item.category}</span>
+          </div>
+        </div>
+      `).join('');
+
+      searchResultsDropdown.style.display = 'block';
+      searchResults.innerHTML = `
+        <div class="search-results-header">
+          <p>Found ${filteredResults.length} result${filteredResults.length > 1 ? 's' : ''}</p>
+        </div>
+        ${resultsHTML}
+      `;
+    }
+
+    searchBtn.addEventListener('click', openSearch);
+    searchCloseBtn.addEventListener('click', closeSearch);
+
+    searchInput.addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      const query = e.target.value;
+      searchTimeout = setTimeout(() => {
+        performSearch(query);
+      }, 300);
+    });
+
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeSearch();
+      }
+    });
+
+    // Close search when clicking outside
+    document.addEventListener('click', (e) => {
+      const searchContainer = document.querySelector('.search-container');
+      if (!searchContainer.contains(e.target) && !searchResultsDropdown.contains(e.target)) {
+        if (searchBar.classList.contains('active')) {
+          closeSearch();
+        }
+      }
+    });
+
+    // Update dropdown position when search bar is active
+    function updateDropdownPosition() {
+      if (searchBar.classList.contains('active')) {
+        const searchBarRect = searchBar.getBoundingClientRect();
+        searchResultsDropdown.style.top = (searchBarRect.bottom + 10) + 'px';
+        searchResultsDropdown.style.right = (window.innerWidth - searchBarRect.right) + 'px';
+      }
+    }
+
+    searchInput.addEventListener('focus', updateDropdownPosition);
+    window.addEventListener('resize', updateDropdownPosition);
+
+    // Keyboard shortcuts for search
+    document.addEventListener('keydown', (e) => {
+      // Ctrl+K or Cmd+K to open search
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        if (searchBar.classList.contains('active')) {
+          closeSearch();
+        } else {
+          openSearch();
+        }
+      }
+      // Forward slash (/) to open search when not typing in input
+      if (e.key === '/' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        openSearch();
+      }
+    });
+
+    // Navbar Interactive Features
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuItems = document.querySelectorAll('.menu-item');
+    const mobileMenuItems = document.querySelectorAll('.mobile-menu-item');
+
+    // Mobile menu toggle
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+      mobileMenuBtn.classList.toggle('active');
+    });
+
+    // Active menu item handling
+    function setActiveItem(item) {
+      menuItems.forEach(i => i.classList.remove('active'));
+      mobileMenuItems.forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+    }
+
+    menuItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        const href = item.getAttribute('href');
+        // Only block navigation for placeholder links like "#"
+        if (!href || href === '#') {
+          e.preventDefault();
+        }
+        setActiveItem(item);
+      });
+    });
+
+    mobileMenuItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        const href = item.getAttribute('href');
+        if (!href || href === '#') {
+          e.preventDefault();
+        }
+        setActiveItem(item);
+        mobileMenu.classList.remove('active');
+        mobileMenuBtn.classList.remove('active');
+      });
+    });
+
+    // Navbar scroll effect
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      const navbar = document.querySelector('.navbar');
+      
+      if (currentScroll > 100) {
+        navbar.style.background = 'rgba(0, 0, 0, 0.98)';
+        navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.5)';
+      } else {
+        navbar.style.background = 'linear-gradient(to bottom, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.85) 100%)';
+        navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.3)';
+      }
+      
+      lastScroll = currentScroll;
+    });
+  </script>
+</body>
+</html>
+

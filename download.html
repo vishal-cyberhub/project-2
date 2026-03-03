@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Download Songs - WatchMe</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="page-bg-video">
+    <video id="bgVideo" autoplay muted playsinline loop></video>
+    <div class="page-bg-overlay"></div>
+  </div>
+
+  <div class="navbar">
+    <div class="navbar-content">
+      <div class="logo">
+        <span class="logo-icon">▶</span>
+        <span class="logo-text">WatchMe</span>
+      </div>
+      <div class="menu">
+        <a href="index.html" class="menu-item">Home</a>
+        <a href="#" class="menu-item">Movies</a>
+        <a href="#" class="menu-item">Series</a>
+        <a href="#" class="menu-item">My List</a>
+        <a href="download.html" class="menu-item active">Download</a>
+      </div>
+      <div class="navbar-right">
+        <div class="user-menu">
+          <a href="login.html" class="user-btn">
+            <span class="user-icon">👤</span>
+            <span class="user-text">Login</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="download-page">
+    <div class="download-header">
+      <h1>Download Your Favorite Songs</h1>
+      <p>Select a song and choose the format you want to download.</p>
+    </div>
+
+    <div class="download-list">
+      <div class="download-card">
+        <div class="download-info">
+          <h2>100 Million</h2>
+          <p>DIVINE, Karan Aujla – Official Music Video</p>
+        </div>
+        <div class="download-actions">
+          <a href="videos/100 Million - DIVINE, Karan Aujla   Official Music Video.mp4" download
+            class="download-btn">Download MP4</a>
+        </div>
+      </div>
+
+      <div class="download-card">
+        <div class="download-info">
+          <h2>DO ME A FAVOUR</h2>
+          <p>Navaan Sandhu – New Punjabi Song 2024</p>
+        </div>
+        <div class="download-actions">
+          <a href="videos/DO ME A FAVOUR (Official Video) Navaan Sandhu   Teji Sandhu   SKY Digital   New Punjabi Song 2024.mp4"
+            download class="download-btn">Download MP4</a>
+        </div>
+      </div>
+
+      <div class="download-card">
+        <div class="download-info">
+          <h2>TU HAI</h2>
+          <p>Darshan Raval – Official Music Video</p>
+        </div>
+        <div class="download-actions">
+          <a href="videos/Tu Hai   Official Music Video   Darshan Raval   Neha Sharma   Prakriti Giri   Naushad Khan.mkv"
+            download class="download-btn">Download MP4</a>
+        </div>
+      </div>
+
+      <div class="download-card">
+        <div class="download-info">
+          <h2>YIMMY YIMMY</h2>
+          <p>Tayc, Shreya Ghoshal – Official Video</p>
+        </div>
+        <div class="download-actions">
+          <a href="videos/Yimmy Yimmy - Tayc   Shreya Ghoshal   Jacqueline Fernandez   Rajat N   Rana   Nyadjiko   Anshul Garg.mkv"
+            download class="download-btn">Download MP4</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="download-note">
+      Note: These buttons download the actual video files from your <code>videos</code> folder.
+    </p>
+  </div>
+
+  <script>
+    // Background video on download page – simple fixed video
+    const bgVideo = document.getElementById('bgVideo');
+    if (bgVideo) {
+      bgVideo.src = "videos/100 Million - DIVINE, Karan Aujla   Official Music Video.mp4";
+      bgVideo.load();
+      bgVideo.play().catch(() => { });
+    }
+
+
+    document.querySelectorAll('.download-btn').forEach(btn => {
+      // Optional: Add analytics or logging here if needed
+    });
+  </script>
+</body>
+
+</html>

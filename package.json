@@ -1,0 +1,12 @@
+{
+    "name": "watchme-ott",
+    "version": "1.0.0",
+    "description": "Simple OTT Platform",
+    "main": "index.html",
+    "scripts": {
+        "dev": "npx serve -l 8080"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}
